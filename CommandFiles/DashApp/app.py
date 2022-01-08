@@ -85,6 +85,7 @@ app.layout = html.Div(children=[
     Input('features_type', 'value'))
 def render_tabs(tab, clf_type, text_name, text_input, use_ordinal, features_type):
 
+    # features type choosing
     if features_type == 'Cały tekst':
         features_type = 1
     else:
