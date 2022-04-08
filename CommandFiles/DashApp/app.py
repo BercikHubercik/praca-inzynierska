@@ -24,7 +24,8 @@ models = ['NaiveBayes', 'SVM']
 features = ['Cały tekst', 'Tekst bez SW']
 text_names = list(df.index.values)
 text_names.insert(0, 'Własny tekst')
-app = dash.Dash()
+
+app = dash.Dash(__name__)
 
 app.layout = html.Div(children=[
     html.H1(children='Aplikacja rozpoznająca emocje'),
@@ -35,7 +36,7 @@ app.layout = html.Div(children=[
             dcc.Dropdown(
                 id='clf_type',
                 options=[{'label': i, 'value': i} for i in models]
-            )
+            ),
         ]),
         html.Div([
             html.H4(children='Czy chcesz użyc modyfikacji do regrecji porządkowej'),
@@ -54,7 +55,9 @@ app.layout = html.Div(children=[
                 id='features_type',
                 options=[{'label': i, 'value': i} for i in features]
             )
-        ]),
+        ])
+    ]),
+    html.Div([
         html.Div([
             html.H2(children='Wybierz tekst'),
             dcc.Dropdown(
@@ -128,8 +131,11 @@ def render_tabs(tab, clf_type, text_name, text_input, use_ordinal, features_type
     # create figures for confusion matrix
     figures = []
     for emo in conf_matrix_dict.keys():
+        lbl = [str(i) for i in range(len(conf_matrix_dict[emo][0]))]
         fig = px.imshow(list(conf_matrix_dict[emo]),
                         labels=dict(x="Przewidziana wartość", y="Prawdziwa wartość", color="Liczba przewidzianych wartości"),
+                        x=lbl,
+                        y=lbl,
                         title=str(emo)
                         )
 
@@ -142,7 +148,7 @@ def render_tabs(tab, clf_type, text_name, text_input, use_ordinal, features_type
                 html.P(text)
             ]),
             html.Div([
-                html.H4(children=str(list(pred_dict.keys())[0]) + ' - Nastrój narratora był'),
+                html.H4(children='Nastrój narratora był'),
                 dcc.Slider(min=-1,
                            max=1,
                            step=None,

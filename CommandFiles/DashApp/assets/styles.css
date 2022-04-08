@@ -1,0 +1,12 @@
+body {
+  padding: 1em;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  color: #222222;
+  background-color: floralwhite;
+}
+
+#text_input {
+  min-width: 94vw;
+  margin-bottom: 10px;
+}

@@ -120,9 +120,7 @@ class Classifier:
         return val_dict
 
     def predict_single_val(self, new_text):
-        print(new_text)
         new_text = self.prepare_new_text(new_text)
-        print(new_text)
         text_vec = self.vector.transform([new_text]).toarray()
         pred_dict = {}
 
